@@ -1,13 +1,9 @@
 package com.hackyeah.lotapi
 
-import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
-import org.springframework.web.client.RestTemplate
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
-import java.lang.RuntimeException
 
 data class LotAvailabilityInput(
     val origin: String,

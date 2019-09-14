@@ -1,0 +1,32 @@
+package com.hackyeah.service
+
+val destinationTags: Map<String, Set<String>> = mapOf(
+    "AMS" to setOf("city", "modern", "sightseeing", "crowd"),
+    "ARN" to setOf("city", "cold", "modern", "active", "sightseeing"),
+    "BCN" to setOf("city", "hot", "sightseeing", "active", "crowd", "amusement"),
+    "BEY" to setOf("city", "sightseeing", "ancient", "crowd", "oriental", "adventure"),
+    "BLL" to setOf("city", "modern", "active", "crowd", "amusement", "adventure"),
+    "CDG" to setOf("city", "modern", "ancient", "crowd", "contemplation", "sightseeing"),
+    "CFU" to setOf("beach", "hot", "ancient", "lazy", "sightseeing", "loneliness", "mountains"),
+    "CMB" to setOf("city", "oriental", "jungle", "active", "sightseeing", "crowd", "countryside"),
+    "DBV" to setOf("beach", "forest", "mountains", "hot", "ancient", "lazy", "sightseeing", "city", "crowd"),
+    "DEL" to setOf("city", "hot", "oriental", "active", "ancient", "crowd"),
+    "DPS" to setOf("beach", "mountains", "lazy", "lake", "forest"),
+    "GDN" to setOf("beach", "lazy", "sightseeing"),
+    "GVA" to setOf("city", "mountains", "loneliness", "lake", "sightseeing", "contemplation"),
+    "ICN" to setOf("city", "hot", "modern", "oriental", "sightseeing", "crowd"),
+    "IST" to setOf("city", "hot", "ancient", "oriental", "sightseeing", "crowd"),
+    "JFK" to setOf("city", "modern", "amusement", "sightseeing", "crowd", "active"),
+    "KGD" to setOf("city", "ancient", "sightseeing", "crowd", "lazy", "contemplation"),
+    "KRK" to setOf("city", "ancient", "contemplation", "sightseeing", "crowd", "active", "mountains"),
+    "LAX" to setOf("city", "beach", "modern", "amusement", "crowd", "active", "hot"),
+    "LWO" to setOf("city", "ancient", "lazy", "sightseeing", "crowd"),
+    "MIA" to setOf("city", "modern", "amusement", "beach", "lazy"),
+    "PEK" to setOf("city", "modern", "sightseeing", "crowd", "oriental", "contemplation"),
+    "PRG" to setOf("city", "ancient", "modern", "contemplation", "sightseeing", "active"),
+    "SKP" to setOf("city", "ancient", "mountains", "sightseeing", "active"),
+    "SYD" to setOf("city", "modern", "active", "crowd", "beach"),
+    "VIE" to setOf("city", "ancient", "contemplation", "sightseeing", "lazy"),
+    "WAW" to setOf("city", "modern", "lazy", "crowd"),
+    "YYZ" to setOf("city", "modern", "active", "cold", "lake", "countryside")
+)

@@ -3,6 +3,7 @@ package com.hackyeah.rest
 import com.hackyeah.lotapi.CabinClass.ECONOMY
 import com.hackyeah.lotapi.LotAvailabilityInput
 import com.hackyeah.lotapi.Market.PL
+import com.hackyeah.lotapi.Offer
 import com.hackyeah.lotapi.TripType.RoundTrip
 import com.hackyeah.lotapi.lotAvailability
 import com.hackyeah.lotapi.newLotCredentials
@@ -60,7 +61,7 @@ class LotApiRestController(
         @RequestParam departureDateStart: String,
         @RequestParam departureDateEnd: String,
         @RequestParam tripDurationDays: Int, @RequestParam maxPricePerPerson: Double, @RequestParam tags: List<String>
-    ) {
+    ): List<Offer> {
         println(origin)
         println(numberOfAdults)
         println(departureDateStart)
@@ -72,7 +73,7 @@ class LotApiRestController(
         val departureStart = ISO_DATE.parse(departureDateStart, LocalDate::from)
         val departureEnd = ISO_DATE.parse(departureDateEnd, LocalDate::from)
 
-        lotTagsService.getMatchingFlights(
+        return lotTagsService.getMatchingFlights(
             TagsInput(
                 origin = origin,
                 numberOfAdults = numberOfAdults,
@@ -85,8 +86,3 @@ class LotApiRestController(
         )
     }
 }
-
-// endpoint 1: feeling lucky WSZYSTKO - origin, numberOfAdults
-// endpoint 2 (tagi): origin, numberOfAdults, czas start (przedzial), dlugosc pobytu, tagi, maxPricePerPerson
-
-// tagi: List<String> // ?tags=tag1,tag2,tag3
