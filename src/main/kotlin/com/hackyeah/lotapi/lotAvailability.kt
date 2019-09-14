@@ -5,6 +5,9 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.reactive.function.client.WebClient
+import reactor.core.publisher.Mono
+import java.lang.RuntimeException
 
 data class LotAvailabilityInput(
     val origin: String,
@@ -32,7 +35,7 @@ enum class TripType(val code: String) {
     RoundTrip("R")
 }
 
-fun lotAvailability(lotCredentials: LotCredentials, input: LotAvailabilityInput) {
+fun lotAvailability(lotCredentials: LotCredentials, input: LotAvailabilityInput): Mono<LotAvailabilityResponse> {
     val url = "$API_URL_BASE/booking/availability"
     val headers = HttpHeaders()
     headers["X-Api-Key"] = lotCredentials.xApiKey
@@ -50,11 +53,17 @@ fun lotAvailability(lotCredentials: LotCredentials, input: LotAvailabilityInput)
             adt = input.numberOfAdults
         )
     )
-    val body = HttpEntity(request, headers)
 
-    val response = RestTemplate()
-        .exchange(url, HttpMethod.POST, body, LotAvailabilityResponse::class.java)
-    println(response)
+    return WebClient.create()
+        .post()
+        .uri(url)
+        .syncBody(request)
+        .header("X-Api-Key", lotCredentials.xApiKey)
+        .header("Authorization", "Bearer ${lotCredentials.accessToken}")
+        .header("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE)
+        .retrieve()
+        .onStatus({t -> t.is5xxServerError },{t -> t.bodyToMono(String::class.java).doOnEach{println(it)}.map { RuntimeException(it) } })
+        .bodyToMono(LotAvailabilityResponse::class.java)
 }
 
 private data class LotAvailabilityRequest(
@@ -72,12 +81,46 @@ private data class LotAvailabilityParams(
     val adt: Int
 )
 
-private data class LotAvailabilityResponse(
-    val data: List<Any>,
+data class LotAvailabilityResponse(
+    val data: List<List<Offer>>,
     val status: String,
     val errors: Any
 )
 
-private data class LotAvailabilityData(
-    val x: String
+data class Offer(
+    val offerId: String,
+    val totalPrice: TotalPrice,
+    val outbound: Flight,
+    val inbound: Flight,
+    val url: String
+)
+
+data class TotalPrice(
+    val price: Double,
+    val basePrice: Double,
+    val tax: Double,
+    val currency: String
+)
+
+data class Flight(
+    val duration: Double,
+    val segments: List<Segment>,
+    val fareType: String,
+    val price: Double,
+    val id: Int
+)
+
+data class Segment(
+    val idInfoSegment: Int,
+    val departureAirport: String,
+    val arrivalAirport: String,
+    val departureDate: String,
+    val arrivalDate: String,
+    val carrier: String,
+    val flightNumber: String,
+    val operationCarrier: String,
+    val equipment: String,
+    val duration: Double,
+    val stopTime: Double,
+    val scheduleChange: Double
 )

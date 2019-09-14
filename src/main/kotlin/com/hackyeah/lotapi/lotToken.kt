@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicReference
 import org.springframework.http.HttpMethod.POST
 import org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE
 
-
 private val lotCredentials: AtomicReference<LotCredentials> = AtomicReference()
 
 private data class TokenRequest(
@@ -20,9 +19,7 @@ data class TokenResponse(
     val token_type: String
 )
 
-//fun getLotCredentials(): LotCredentials = lotCredentials.get() ?: newCredentials()
-
-fun newCredentials(): LotCredentials {
+fun newLotCredentials(): LotCredentials {
     val newToken = requestNewToken()
     val newCredentials = LotCredentials(accessToken = newToken, xApiKey = X_API_KEY)
     lotCredentials.set(newCredentials)

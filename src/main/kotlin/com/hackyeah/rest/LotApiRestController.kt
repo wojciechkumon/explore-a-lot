@@ -5,7 +5,7 @@ import com.hackyeah.lotapi.LotAvailabilityInput
 import com.hackyeah.lotapi.Market.PL
 import com.hackyeah.lotapi.TripType.RoundTrip
 import com.hackyeah.lotapi.lotAvailability
-import com.hackyeah.lotapi.newCredentials
+import com.hackyeah.lotapi.newLotCredentials
 import com.hackyeah.service.LotLuckyService
 import com.hackyeah.service.LotTagsService
 import com.hackyeah.service.TagsInput
@@ -23,24 +23,26 @@ class LotApiRestController(
 
     @GetMapping("/api/dupa")
     fun test(): String {
-        return newCredentials().accessToken
+        return newLotCredentials().accessToken
     }
 
     @GetMapping("/api/lotAvail")
     fun getLotAvail() {
-        val lotCredentials = newCredentials()
-        lotAvailability(
-            lotCredentials,
-            LotAvailabilityInput(
-                origin = "WAW",
-                destination = "AMS",
-                departureDate = "22102019",
-                returnDate = "25102019",
-                cabinClass = ECONOMY,
-                market = PL,
-                tripType = RoundTrip,
-                numberOfAdults = 1
-            )
+        val lotCredentials = newLotCredentials()
+        println(
+            lotAvailability(
+                lotCredentials,
+                LotAvailabilityInput(
+                    origin = "WAW",
+                    destination = "AMS",
+                    departureDate = "22102019",
+                    returnDate = "25102019",
+                    cabinClass = ECONOMY,
+                    market = PL,
+                    tripType = RoundTrip,
+                    numberOfAdults = 1
+                )
+            ).block()
         )
     }
 
