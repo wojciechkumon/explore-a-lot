@@ -48,11 +48,11 @@ class LotApiRestController(
     }
 
     @GetMapping("/api/lot/lucky/flights")
-    fun getLuckyFlights(@RequestParam origin: String, @RequestParam numberOfAdults: Int) {
+    fun getLuckyFlights(@RequestParam origin: String, @RequestParam numberOfAdults: Int): List<Offer> {
         println(origin)
         println(numberOfAdults)
 
-        lotLuckyService.getLuckyFlights(origin, numberOfAdults)
+        return lotLuckyService.getLuckyFlights(origin, numberOfAdults)
     }
 
     @GetMapping("/api/lot/tags/flights")

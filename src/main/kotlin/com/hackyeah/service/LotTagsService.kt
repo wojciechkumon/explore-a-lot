@@ -30,6 +30,7 @@ data class TagsInput(
     val tags: List<String>
 )
 
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 @Service
 class LotTagsService(
     private val throttler: Throttler
@@ -119,7 +120,7 @@ class LotTagsService(
 }
 
 private const val MAX_RESULTS = 3
-private val lotDateFormatter = DateTimeFormatter.ofPattern("ddMMyyyy")
+val lotDateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("ddMMyyyy")
 
 private data class DestinationDate(
     val destination: String,
