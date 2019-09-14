@@ -17,10 +17,8 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
 import java.time.temporal.ChronoUnit
-import java.util.stream.Collectors
 import java.util.stream.Stream
 import kotlin.streams.toList
-import java.util.stream.Collectors.toMap
 
 data class TagsInput(
     val origin: String,
@@ -39,7 +37,6 @@ class LotTagsService(
 
     fun getMatchingFlights(input: TagsInput): List<Offer> {
         val lotCredentials = newLotCredentials()
-        input.maxPricePerPerson
         val destinations = findBestMatchingDestinationsByTags(input.tags)
 
         val datesToCheck = getRangeOfDates(input.departureDateStart, input.departureDateEnd).toList()
@@ -80,19 +77,32 @@ class LotTagsService(
                     .take(10)
             }
 
-        // TODO filter and find best flights + fill to have always 3 destinations + randomize more
         return topOffers
     }
 
     private fun findBestMatchingDestinationsByTags(tags: List<String>): List<String> {
         val destinationToMatchingTags = destinationTags.entries
             .map { entry -> Pair(entry.key, matchingTags(entry.value, tags)) }
-        val max = destinationToMatchingTags.map { it.second }.max()
-        return destinationToMatchingTags
+        var max: Int = destinationToMatchingTags.map { it.second }.max()!!
+        val destinations = arrayListOf<String>()
+        destinations.addAll(takeDestinations(destinationToMatchingTags, max, MAX_RESULTS))
+        while (destinations.size < MAX_RESULTS) {
+            max -= 1
+            destinations.addAll(takeDestinations(destinationToMatchingTags, max, MAX_RESULTS - destinations.size))
+        }
+        return destinations
+    }
+
+    private fun takeDestinations(
+        destinationToMatchingTags: List<Pair<String, Int>>,
+        max: Int?,
+        amountToTake: Int
+    ): List<String> =
+        destinationToMatchingTags
             .filter { it.second == max }
             .map { it.first }
-            .take(3)
-    }
+            .shuffled()
+            .take(amountToTake)
 
     private fun matchingTags(destinationTags: Set<String>, requiredTags: List<String>): Int =
         requiredTags.filter { destinationTags.contains(it) }.count()
@@ -108,6 +118,7 @@ class LotTagsService(
     }
 }
 
+private const val MAX_RESULTS = 3
 private val lotDateFormatter = DateTimeFormatter.ofPattern("ddMMyyyy")
 
 private data class DestinationDate(
