@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.DatesActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="What's your max budget per person?"
+                android:textColor="@android:color/black"
+                android:textSize="30dp"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginTop="40dp"
+                android:padding="25dp"
+                android:gravity="center"
+                />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="25dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/budget1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="40dp"
+                    android:text="500 PLN  "
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="@color/colorPrimary" />
+
+                <Button
+                    android:id="@+id/budget2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="40dp"
+                    android:text="1500 PLN"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="@color/colorPrimary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/budget3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="40dp"
+                    android:text="3000 PLN"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="@color/colorPrimary" />
+
+                <Button
+                    android:id="@+id/budget4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="40dp"
+                    android:text="6000 PLN"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="@color/colorPrimary" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

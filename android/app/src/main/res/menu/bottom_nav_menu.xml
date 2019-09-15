@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_recents"
+        android:enabled="true"
+        android:icon="@drawable/ic_message_black_24dp"
+        android:title="Contact"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_favorites"
+        android:enabled="true"
+        android:icon="@drawable/ic_perm_device_information_black_24dp"
+        android:title="Fly status"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_nearby"
+        android:enabled="true"
+        android:icon="@drawable/ic_library_books_black_24dp"
+        android:title="Your reservation"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/check_out"
+        android:enabled="true"
+        android:icon="@drawable/ic_flight_takeoff_black_24dp"
+        android:title="Check out"
+        app:showAsAction="ifRoom" />
+</menu>
