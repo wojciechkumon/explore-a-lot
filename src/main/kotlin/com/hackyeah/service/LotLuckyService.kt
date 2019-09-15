@@ -59,6 +59,7 @@ class LotLuckyService(
             .flatMap { it.data.toFlux() }
             .flatMap { it.toFlux() }
             .sequential()
+            .distinct { it.offerId }
             .sort(Comparator.comparing { offer: Offer -> offer.totalPrice.price })
             .take(30)
             .collect(toList())

@@ -72,6 +72,7 @@ class LotTagsService(
             .flatMap { it.toFlux() }
             .filter { it.totalPrice.price < input.maxPricePerPerson }
             .sequential()
+            .distinct { it.offerId }
             .collectList()
             .block()
 
