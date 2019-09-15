@@ -2,7 +2,8 @@
 
 https://explorealot.pl
 
-Repository contains backend server providing API for finding flights by tags.
+Repository contains backend server which provides API for finding flights by tags.
+Solution built during HackYeah 2019.
 
 #### Requirements
 - java >= 8
