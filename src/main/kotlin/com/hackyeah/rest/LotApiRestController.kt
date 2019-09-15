@@ -41,23 +41,34 @@ class LotApiRestController(
                     cabinClass = ECONOMY,
                     market = PL,
                     tripType = RoundTrip,
-                    numberOfAdults = 1
+                    numberOfAdults = 1,
+                    numberOfTeenagers = 0,
+                    numberOfChildren = 0,
+                    numberOfInfants = 0
                 )
             ).block()
         )
     }
 
     @GetMapping("/api/lot/lucky/flights")
-    fun getLuckyFlights(@RequestParam origin: String, @RequestParam numberOfAdults: Int): List<Offer> {
+    fun getLuckyFlights(
+        @RequestParam origin: String,
+        @RequestParam numberOfAdults: Int,
+        @RequestParam numberOfTeenagers: Int,
+        @RequestParam numberOfChildren: Int,
+        @RequestParam numberOfInfants: Int
+    ): List<Offer> {
         println(origin)
         println(numberOfAdults)
 
-        return lotLuckyService.getLuckyFlights(origin, numberOfAdults)
+        return lotLuckyService.getLuckyFlights(origin, numberOfAdults, numberOfTeenagers, numberOfChildren, numberOfInfants)
     }
 
     @GetMapping("/api/lot/tags/flights")
     fun getFlightsByTags(
         @RequestParam origin: String, @RequestParam numberOfAdults: Int,
+        @RequestParam numberOfTeenagers: Int, @RequestParam numberOfChildren: Int,
+        @RequestParam numberOfInfants: Int,
         @RequestParam departureDateStart: String,
         @RequestParam departureDateEnd: String,
         @RequestParam tripDurationDays: Int, @RequestParam maxPricePerPerson: Double, @RequestParam tags: List<String>
@@ -77,6 +88,9 @@ class LotApiRestController(
             TagsInput(
                 origin = origin,
                 numberOfAdults = numberOfAdults,
+                numberOfTeenagers = numberOfTeenagers,
+                numberOfChildren = numberOfChildren,
+                numberOfInfants = numberOfInfants,
                 departureDateStart = departureStart,
                 departureDateEnd = departureEnd,
                 tripDurationDays = tripDurationDays,

@@ -13,7 +13,10 @@ data class LotAvailabilityInput(
     val cabinClass: CabinClass,
     val market: Market,
     val tripType: TripType,
-    val numberOfAdults: Int
+    val numberOfAdults: Int,
+    val numberOfTeenagers: Int,
+    val numberOfChildren: Int,
+    val numberOfInfants: Int
 )
 
 enum class CabinClass(val code: String) {

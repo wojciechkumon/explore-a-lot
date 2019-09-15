@@ -15,7 +15,6 @@ import reactor.core.publisher.Mono
 import reactor.core.publisher.toFlux
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import kotlin.random.Random
 import java.time.temporal.ChronoUnit
 import java.util.stream.Stream
 import kotlin.streams.toList
@@ -23,6 +22,9 @@ import kotlin.streams.toList
 data class TagsInput(
     val origin: String,
     val numberOfAdults: Int,
+    val numberOfTeenagers: Int,
+    val numberOfChildren: Int,
+    val numberOfInfants: Int,
     val departureDateStart: LocalDate,
     val departureDateEnd: LocalDate,
     val tripDurationDays: Int,
@@ -57,7 +59,10 @@ class LotTagsService(
                             cabinClass = CabinClass.ECONOMY,
                             market = Market.PL,
                             tripType = TripType.RoundTrip,
-                            numberOfAdults = Random.nextInt(8) + 1
+                            numberOfAdults = input.numberOfAdults,
+                            numberOfTeenagers = input.numberOfTeenagers,
+                            numberOfChildren = input.numberOfChildren,
+                            numberOfInfants = input.numberOfInfants
                         )
                     ).onErrorResume { Mono.just(LotAvailabilityResponse(listOf(), "500", Any())) }
                 )

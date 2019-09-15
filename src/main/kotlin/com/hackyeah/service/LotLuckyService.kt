@@ -14,7 +14,6 @@ import reactor.core.publisher.Mono
 import reactor.core.publisher.toFlux
 import java.time.LocalDate
 import java.util.stream.Collectors.toList
-import java.util.stream.Stream
 import kotlin.random.Random
 
 @Service
@@ -22,7 +21,13 @@ class LotLuckyService(
     private val throttler: Throttler
 ) {
 
-    fun getLuckyFlights(origin: String, numberOfAdults: Int): List<Offer> {
+    fun getLuckyFlights(
+        origin: String,
+        numberOfAdults: Int,
+        numberOfTeenagers: Int,
+        numberOfChildren: Int,
+        numberOfInfants: Int
+    ): List<Offer> {
         val lotCredentials = newLotCredentials()
 
         val destination = destinationTags.keys.shuffled().first()
@@ -42,7 +47,10 @@ class LotLuckyService(
                             cabinClass = CabinClass.ECONOMY,
                             market = Market.PL,
                             tripType = TripType.RoundTrip,
-                            numberOfAdults = numberOfAdults
+                            numberOfAdults = numberOfAdults,
+                            numberOfTeenagers = numberOfTeenagers,
+                            numberOfChildren = numberOfChildren,
+                            numberOfInfants = numberOfInfants
                         )
                     ).onErrorResume { Mono.just(LotAvailabilityResponse(listOf(), "500", Any())) }
                 )
